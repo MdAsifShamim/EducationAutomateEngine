@@ -1,0 +1,16 @@
+services:
+  studentmicroserviceengine:
+    image: "mdasifshamim/studentmicrosrviceengine:c1"
+    container_name: student-ms
+    ports:
+      - "9991:9991"
+    deploy:
+      resources:
+       limits:
+        memory: 700m
+    networks:
+      - educationautomateengine
+networks:
+  educationautomateengine:
+    driver: "bridge"
+
