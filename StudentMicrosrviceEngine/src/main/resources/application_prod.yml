@@ -1,0 +1,19 @@
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+  
+
+
+#Build Verion
+build:
+  version: "1.0"  
+
+students:
+  name: "Welcome to Student MicroService"
+  contactDetails: 
+    name: "neha Afreen"
+    email: "nafreen1234@gmail.com"
+  onCallSupport:
+     - (+91) 9131053401
+     - (+91) 7089717309

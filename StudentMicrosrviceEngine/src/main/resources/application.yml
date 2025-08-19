@@ -9,8 +9,7 @@ spring:
     driver-class-name: org.h2.Driver
   h2:
     console:
-      enabled: true
-      
+      enabled: true      
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
@@ -33,5 +32,19 @@ management:
       show-details: always
     shutdown:
       enabled: true
+
+#Build Verion
+build:
+  version: "1.3"  
+
+students:
+  name: "Welcome to Student MicroService"
+  contactDetails: 
+    name: "MD ASIF SHAMIM"
+    email: "asifshamim0403@gmail.com"
+  onCallSupport:
+     - (+91) 9131053401
+     - (+91) 7089717309
+      
       
   

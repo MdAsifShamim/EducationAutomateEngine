@@ -1,5 +1,8 @@
 package com.ed.std.engine.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,7 @@ import com.ed.std.engine.constants.StudentConstants;
 import com.ed.std.engine.dtos.ErrorResponseDto;
 import com.ed.std.engine.dtos.ResponseDto;
 import com.ed.std.engine.dtos.StudentPersonalInfoDto;
+import com.ed.std.engine.dtos.studentContactInfoDto;
 import com.ed.std.engine.services.iStudentInfoService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,19 +32,32 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
 
 
 @RestController
-@AllArgsConstructor
+
 @Validated
 @RequestMapping(path="/api/v1/student" ,  produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(name = "CRUD REST APIs for Student in Education Automate Engine project",
 description = "CRUD REST APIs in  Education Automate Engine to CREATE,UPDATE,FETCH,DELETE Student Details")
 public class StudentInformationController {
 	
+	@Value("${build.version}")
+    private String buildVersion;
+	
 
-	iStudentInfoService studentInfoService;
+	private final iStudentInfoService studentInfoService;
+	
+	public StudentInformationController(iStudentInfoService studentInfoService) {
+		this.studentInfoService=studentInfoService;
+	}
+	
+	@Autowired
+	private Environment environment;
+	
+	@Autowired
+	private studentContactInfoDto contactinfoDto;
+	
 
 	@Operation(summary = "Create new Student REST API",
 			description = "REST API to create new Student inside Student Microservice Engine")
@@ -133,5 +150,69 @@ public class StudentInformationController {
 				.body(new ResponseDto(StudentConstants.MESSAGE_417_UPDATE, StudentConstants.MESSAGE_417_UPDATE));
 	}
 	
+	
+	
+	@Operation(summary="Build Version Info",
+			description = "Fetch current version of build using get api")
+	
+	@ApiResponses({
+		@ApiResponse(responseCode = "200" , description = "HTTP Status OK "),
+		@ApiResponse(responseCode ="500" ,description = "Internal Server error",
+		content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
+	})
+	
+	@GetMapping("/version-info")
+	public ResponseEntity<String> getBuildVersionInfo(){
+		return ResponseEntity.status(HttpStatus.OK).body(buildVersion);
+	}
+	
+	
+	  @Operation(
+	            summary = "Get Java version",
+	            description = "Get Java versions details that is installed into accounts microservice"
+	    )
+	    @ApiResponses({
+	            @ApiResponse(
+	                    responseCode = "200",
+	                    description = "HTTP Status OK"
+	            ),
+	            @ApiResponse(
+	                    responseCode = "500",
+	                    description = "HTTP Status Internal Server Error",
+	                    content = @Content(
+	                            schema = @Schema(implementation = ErrorResponseDto.class)
+	                    )
+	            )
+	    }
+	    )
+	    @GetMapping("/java-version")
+	    public ResponseEntity<String> getJavaVersion(){
+	        return ResponseEntity.status(HttpStatus.OK).body(environment.getProperty("JAVA_HOME"));
+	    }
+	  
+	  	
+	  @Operation(
+	            summary = "Get Contact Info",
+	            description = "Contact Info details that can be reached out in case of any issues"
+	    )
+	    @ApiResponses({
+	            @ApiResponse(
+	                    responseCode = "200",
+	                    description = "HTTP Status OK"
+	            ),
+	            @ApiResponse(
+	                    responseCode = "500",
+	                    description = "HTTP Status Internal Server Error",
+	                    content = @Content(
+	                            schema = @Schema(implementation = ErrorResponseDto.class)
+	                    )
+	            )
+	    }
+	    )
+	    @GetMapping("/contact-info")
+	    public ResponseEntity<studentContactInfoDto> getContactInfo(){
+	        return ResponseEntity.status(HttpStatus.OK).body(contactinfoDto);
+	    }
+	  	
 		
 }

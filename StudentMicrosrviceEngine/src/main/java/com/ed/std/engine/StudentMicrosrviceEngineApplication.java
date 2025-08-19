@@ -3,8 +3,10 @@ package com.ed.std.engine;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+import com.ed.std.engine.dtos.studentContactInfoDto;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
@@ -15,6 +17,7 @@ import io.swagger.v3.oas.annotations.info.License;
 
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "AuditAwareImpl")
+@EnableConfigurationProperties(studentContactInfoDto.class)
 @OpenAPIDefinition(
 		info = @Info(
 			title = "Student microservice REST API Documentation",
