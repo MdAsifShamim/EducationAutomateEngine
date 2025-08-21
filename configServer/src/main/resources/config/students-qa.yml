@@ -1,13 +1,8 @@
-spring:
- config:
-   activate:
-     on-profile: "qa"
-  
-
 #Build Verion
 build:
   version: "1.2"  
 
+#Contact Info
 students:
   name: "Welcome to Student MicroService"
   contactDetails: 

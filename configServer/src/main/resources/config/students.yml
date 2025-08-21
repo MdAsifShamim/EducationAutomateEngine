@@ -1,0 +1,15 @@
+#Build Verion
+build:
+  version: "1.3"  
+
+students:
+  name: "Welcome to Student MicroService"
+  contactDetails: 
+    name: "MD ASIF SHAMIM"
+    email: "asifshamim0403@gmail.com"
+  onCallSupport:
+     - (+91) 9131053401
+     - (+91) 7089717309
+      
+      
+  
