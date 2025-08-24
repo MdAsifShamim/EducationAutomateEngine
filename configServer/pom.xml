@@ -9,10 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ed</groupId>
-	<artifactId>configServer</artifactId>
+	<artifactId>configserver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>configServer</name>
+	<name>configserver</name>
 	<description>Central Config server for Student application</description>
+    <packaging>jar</packaging>
 	<url/>
 	<licenses>
 		<license/>
@@ -40,6 +41,16 @@
 			<artifactId>spring-cloud-config-server</artifactId>
 		</dependency>
 
+        <!--Spring Cloud Bus dependency with rabbit mq -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+        </dependency>
+        <!--Spring Cloud Bus Auto call git webhook dependency -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-monitor</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -64,6 +75,20 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.4.3</version>
+                <configuration>
+                    <from>
+                        <image>eclipse-temurin:17-jre</image>
+                    </from>
+                    <to>
+                        <image>mdasifshamim/${project.artifactId}:v1</image>
+                    </to>
+                    <allowInsecureRegistries>true</allowInsecureRegistries>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 
