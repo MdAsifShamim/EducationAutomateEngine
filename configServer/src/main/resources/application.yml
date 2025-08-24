@@ -3,13 +3,43 @@ spring:
     name: "Configserver"
     
   profiles:
-    active: native
+    active: git
     
   cloud:
     config:
       server:
-        native:
-          search-locations: "classpath:/config"
+       git:
+         uri: "https://github.com/MdAsifShamim/EducationAutomateEngineConfig.git"
+         default-label: main
+         timeout: 5
+         clone-on-start: true
+         force-pull: true
+           #This All Changes relatd to Add Config files in classpath location or into file location
+           #  native:
+       #   search-locations:
+          #Worked with sts and eclipse
+        #    - "file:///D:/Full Stack Project/EducationAutomateEngine/studentConfig/"
+          #ClassPath approach
+          #search-locations: "classpath:/config"
+          #read from file location approach work with itellij IDEA
+          #search-locations: "file///D://Full Stack Project//EducationAutomateEngine//studentConfig"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
 
 server:
   port: 9992
+
+encrypt:
+  key: "MNDEAHSAIF3205JOUCLT2304"
